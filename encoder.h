@@ -2,10 +2,15 @@
 // Created by mo on 4/11/23.
 //
 #include <string>
-#include </home/mo/IT/openMS/simde-master/simde/x86/sse.h>
-#include </home/mo/IT/openMS/simde-master/simde/x86/sse2.h>
-#include </home/mo/IT/openMS/simde-master/simde/x86/ssse3.h>
-#include </home/mo/IT/openMS/simde-master/simde/x86/avx512.h>
+
+#include </buffer/ag_bsc/pmsb_23/morib70/simdplayground/simde/x86/sse.h>
+#include </buffer/ag_bsc/pmsb_23/morib70/simdplayground/simde/x86/sse2.h>
+#include </buffer/ag_bsc/pmsb_23/morib70/simdplayground/simde/x86/ssse3.h>
+
+//#include <x86/sse.h>
+//#include <x86/sse2.h>
+//#include <x86/ssse3.h>
+//#include <x86/avx512.h>
 #ifndef SSEPLAYGROUND_ENCODER_H
 #define SSEPLAYGROUND_ENCODER_H
 
