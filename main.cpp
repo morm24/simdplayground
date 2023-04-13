@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
-#include <x86/sse.h>
+//#include </home/mo/IT/openMS/simde-master/simde/x86/sse.h>
+//#include </home/mo/IT/openMS/simde-master/simde/x86/sse2.h>
+//#include </home/mo/IT/openMS/simde-master/simde/x86/ssse3.h>
 #include <x86/sse2.h>
 #include <x86/ssse3.h>
 #include <emmintrin.h>
