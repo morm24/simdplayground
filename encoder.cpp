@@ -14,12 +14,14 @@ void Encoder::encodeString(const std::string &in, std::string &out) {
     const char* inPtr = &in[0];
     char* outPtr = &out[0];
 
+    char c = * (inPtr +12);
+
     const size_t loop= in.size() / 12;
 
 
     for(int i = 0; i < loop; i++){
         //everytime the last 4 out of 16 byte string data get lost through processing, therefore 12 byte jumps
-        simde__m128i data = simde_mm_load_si128((simde__m128i*) inPtr + i*12 );
+        simde__m128i data = simde_mm_lddqu_si128((simde__m128i*) (inPtr + i*12) );
         data = simde_mm_shuffle_epi8(data, shuffleMask);
         //by shuffling every 3 8bit ASCII Letters now take up 4 bytes, "ABC" gets shuffled to "CCBA" to match the 4 bytes of the Base64 Encoding, and deal with little Endianness.
 
@@ -47,7 +49,7 @@ void Encoder::encodeString(const std::string &in, std::string &out) {
                 plusMask        & allPlus                      |
                 simde_mm_andnot_si128(slashAntiMask, allSlash);
 
-        simde_mm_storeu_si128((simde__m128*) outPtr + i * 16, data);
+        simde_mm_storeu_si128((simde__m128*) (outPtr + i * 16), data);
 
     }
 }
