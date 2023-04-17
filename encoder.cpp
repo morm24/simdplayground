@@ -1,7 +1,7 @@
 //
 // Created by mo on 4/11/23.
 //
-
+#include <iostream>
 #include "encoder.h"
 
 //#include <string>
@@ -10,14 +10,18 @@
 
 void Encoder::encodeString(const std::string &in, std::string &out) {
     out.clear();
-    out.resize((in.size() / 3) * 4);
+    out.resize((in.size() / 3.0) * 4);
     const char* inPtr = &in[0];
     char* outPtr = &out[0];
 
     char c = * (inPtr +12);
 
-    const size_t loop= in.size() / 12;
+    const size_t loop= (in.size() / 12 ) +1;
 
+
+
+
+    std::cout << in << "\n";
 
     for(int i = 0; i < loop; i++){
         //everytime the last 4 out of 16 byte string data get lost through processing, therefore 12 byte jumps
@@ -52,4 +56,6 @@ void Encoder::encodeString(const std::string &in, std::string &out) {
         simde_mm_storeu_si128((simde__m128*) (outPtr + i * 16), data);
 
     }
+
+    
 }
