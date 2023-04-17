@@ -3,20 +3,32 @@
 //
 
 #include "decoder.h"
+#include <math.h>
 
 void Decoder::decodeString(const std::string &in, std::string &out) {
     out.clear();
     out.resize((in.size() / 4) * 3);
     const char* inPtr = &in[0];
 
-    int testsize = out.size();
-    char* outPtr = &out[0];
+    //padding count:
+    uint8_t g = 0;
+    if( in[in.size() -1] == '=')
+        g++;
+    if( in[in.size() -2] == '=')
+        g++;
 
-    const size_t loop= in.size() / 16;
+    unsigned outsize = (in.size() / 16) * 12 + 16;
+    out.resize(outsize);
+    char* outPtr = &out[0];
+    size_t loop= in.size()  / 16;
+
+    if(in.size() % 16)
+        loop++;
 
 
     for(int i = 0; i < loop; i++){
 
+        //@chris : wird das evtl zum Problem, wenn wir ans Ende kommen?
         simde__m128i data = simde_mm_lddqu_si128((simde__m128i*) (inPtr + i*16) );
 
         //ASCII letters must be translated over to base64. This cannot be achieved by just adding/substracting a single value
@@ -56,14 +68,23 @@ void Decoder::decodeString(const std::string &in, std::string &out) {
         //convert big endian to little endian
         data= simde_mm_shuffle_epi8(data, shuffleMask2);
 
-        //
-
-        simde_mm_storeu_si128((simde__m128*) (outPtr + i * 12), data);
-        testsize = out.size();
-
-        int ik = 3;
+        //specific handling of the last few letters (apparently a little stupid)
+       // if(i < normalLoop) {
+            simde_mm_storeu_si128((simde__m128 *) (outPtr + i * 12), data);
+        /*}else{
+            unsigned written = (in.size() / 16) *12 ;
+            std::string ending;
+            ending.resize(16);
+            simde_mm_storeu_si128((simde__m128 *) &ending[0] , data);
+            uint8_t rest = (in.size() % 16) / 4 * 3 - g;
+            for(size_t j = 0; j < rest; j++){
+                out[written + j] =ending[j];
+            }
+        }*/
     }
 
+    outsize = (in.size() / 4) * 3 - g;
+    out.resize(outsize);
 
 
 
