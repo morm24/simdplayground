@@ -20,7 +20,6 @@ void Encoder::encodeString(const std::string &in, std::string &out) {
 
 
 
-    std::cout << in << "\n";
 
     for(int i = 0; i < loop; i++){
         //everytime the last 4 out of 16 byte string data get lost through processing, therefore 12 byte jumps
