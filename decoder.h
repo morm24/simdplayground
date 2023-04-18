@@ -18,6 +18,8 @@ public:
 
 private:
 
+    void registerDecoder(simde__m128i & data);
+
     const simde__m128i mask1 = simde_mm_set1_epi32(0xFF000000);//00111111 00000000 00000000 00000000
     const simde__m128i mask2 = simde_mm_set1_epi32(0x00FF0000);//00000000 00111111 00000000 00000000
     const simde__m128i mask3 = simde_mm_set1_epi32(0x0000FF00);//00000000 00000000 00111111 00000000
