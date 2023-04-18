@@ -1,0 +1,4 @@
+simd_test/
+*.o
+*.out
+prep_main.cpp

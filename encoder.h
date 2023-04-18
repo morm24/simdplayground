@@ -2,10 +2,10 @@
 // Created by mo on 4/11/23.
 //
 #include <string>
-#include </home/mo/IT/openMS/simde-master/simde/x86/sse.h>
-#include </home/mo/IT/openMS/simde-master/simde/x86/sse2.h>
-#include </home/mo/IT/openMS/simde-master/simde/x86/ssse3.h>
-#include </home/mo/IT/openMS/simde-master/simde/x86/avx512.h>
+#include "simde/x86/sse.h"
+#include "simde/x86/sse2.h"
+#include "simde/x86/ssse3.h"
+#include "simde/x86/avx512.h"
 #ifndef SSEPLAYGROUND_ENCODER_H
 #define SSEPLAYGROUND_ENCODER_H
 
