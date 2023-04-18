@@ -15,7 +15,8 @@ void Encoder::encodeString(const std::string &in, std::string &out) {
 
     //char c = * (inPtr +12);
 
-    const size_t loop= (in.size() / 12);
+     
+    const size_t loop = in.size()%12 ? (in.size() / 12) : (in.size() / 12) +1;
 
 
 
@@ -57,7 +58,7 @@ void Encoder::encodeString(const std::string &in, std::string &out) {
 
     }
 
-
+/*
 
     //durchlauf der immer aufgerufen wird. (es werden die letzten in.size()%12 zeichen encoded)
 
@@ -92,6 +93,6 @@ void Encoder::encodeString(const std::string &in, std::string &out) {
 
         simde_mm_storeu_si128((simde__m128*) (outPtr + (in.size()%12) * 16), data);
 
-
+*/
     
 }
