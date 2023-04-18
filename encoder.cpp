@@ -9,11 +9,12 @@
 
 void Encoder::encodeString(const std::string &in, std::string &out) {
     //out.clear();
-    out.resize(ceil((in.size() / 3.0) * 4));
+    out.resize(ceil((in.size() / 3.0)) * 5);
     const char* inPtr = &in[0];
     char* outPtr = &out[0];
 
     //char c = * (inPtr +12);
+    
 
      
     const size_t loop = !(in.size()%12) ? (in.size() / 12) : (in.size() / 12) +1;
@@ -24,7 +25,7 @@ void Encoder::encodeString(const std::string &in, std::string &out) {
     uint padding = 3-(in.size()%3);
 
 
-    for(int i = 1; i < loop; i++){
+    for(int i = 0; i < loop; i++){
         //everytime the last 4 out of 16 byte string data get lost through processing, therefore 12 byte jumps
         simde__m128i data = simde_mm_lddqu_si128((simde__m128i*) (inPtr + i*12) );
         data = simde_mm_shuffle_epi8(data, shuffleMask);
@@ -57,8 +58,10 @@ void Encoder::encodeString(const std::string &in, std::string &out) {
         simde_mm_storeu_si128((simde__m128*) (outPtr + i * 16), data);
 
     }
-    if(padding!=3){
-    out.resize(out.size()+padding, '=');
-    }
+    out.resize(ceil((in.size() / 3.0) * 4));
+
+
+    out.resize((((4 * in.size() / 3) + 3) & ~3), '=');
+    
     
 }
